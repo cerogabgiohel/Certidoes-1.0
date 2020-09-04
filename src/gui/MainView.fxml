@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
+   <content>
+      <VBox prefHeight="318.0" prefWidth="458.0">
+         <children>
+            <MenuBar prefHeight="25.0" prefWidth="606.0">
+               <menus>
+                  <Menu mnemonicParsing="false" text="Cadastros">
+                     <items>
+                        <MenuItem fx:id="menuItemCertidao" mnemonicParsing="false" onAction="#onMenuItemCertidaoAction" text="Certidões" />
+                        <MenuItem fx:id="menuItemColaborador" mnemonicParsing="false" onAction="#onMenuItemColaboradorAction" text="Colaboradores" />
+                        <MenuItem fx:id="menuItemTipoDocumento" mnemonicParsing="false" onAction="#onMenuItemTipoDocumentoAction" text="Tipos de Documentos" />
+                        <MenuItem fx:id="menuItemZonasEleitorais" mnemonicParsing="false" onAction="#onMenuItemZonasEleitoraisAction" text="Zonas Eleitorais" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Relatórios" />
+                  <Menu mnemonicParsing="false" text="Ajuda" />
+               </menus>
+            </MenuBar>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>
