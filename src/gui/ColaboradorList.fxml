@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="261.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ColaboradorListController">
+   <children>
+      <Label text="Registro de Colaboradores">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <padding>
+            <Insets left="5.0" top="5.0" />
+         </padding>
+      </Label>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+         <items>
+            <Button fx:id="btNew" mnemonicParsing="false" onAction="#onBtNewAction" text="Novo" />
+         </items>
+      </ToolBar>
+      <TableView fx:id="tableViewColaborador" prefHeight="200.0" prefWidth="200.0">
+         <columns>
+            <TableColumn fx:id="tableColumnColaborador" prefWidth="103.0" text="Colaborador" />
+            <TableColumn fx:id="tableColumnNome" prefWidth="75.0" text="Nome" />
+            <TableColumn fx:id="tableColumnZona" prefWidth="75.0" text="Zona" />
+            <TableColumn fx:id="tableColumnEDIT" prefWidth="72.0" />
+            <TableColumn fx:id="tableColumnREMOVE" prefWidth="77.0" />
+         </columns>
+      </TableView>
+   </children>
+</VBox>

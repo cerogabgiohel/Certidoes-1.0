@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="269.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ZonaListController">
+   <children>
+      <Label text="Registro de Zonas">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <padding>
+            <Insets left="5.0" top="5.0" />
+         </padding>
+      </Label>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+         <items>
+            <Button fx:id="btNew" mnemonicParsing="false" onAction="#onBtNewAction" text="Novo" />
+         </items>
+      </ToolBar>
+      <TableView fx:id="tableViewZona" prefHeight="211.0" prefWidth="497.0">
+         <columns>
+            <TableColumn fx:id="tableColumnChaveZona" prefWidth="103.0" text="Chave da Zona" />
+            <TableColumn fx:id="tableColumnZona" prefWidth="75.0" text="Zona" />
+            <TableColumn fx:id="tableColumnUF" prefWidth="75.0" text="UF" />
+            <TableColumn fx:id="tableColumnSede" prefWidth="75.0" text="Sede" />
+            <TableColumn fx:id="tableColumnEDIT" prefWidth="72.0" />
+            <TableColumn fx:id="tableColumnREMOVE" prefWidth="77.0" />
+         </columns>
+      </TableView>
+   </children>
+</VBox>

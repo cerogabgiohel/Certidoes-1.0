@@ -16,7 +16,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.services.ColaboradorService;
 import model.services.DocumentoService;
+import model.services.ZonaService;
 
 
 public class MainViewController implements Initializable {
@@ -40,6 +42,12 @@ public class MainViewController implements Initializable {
 
 	    @FXML
 	    void onMenuItemColaboradorAction() {
+	    	
+	    	loadView("/gui/ColaboradorList.fxml", (ColaboradorListController controller) -> {
+				controller.setColaboradorService(new ColaboradorService());
+				controller.updateTableView();
+	    		});
+
 
 	    }
 
@@ -55,6 +63,11 @@ public class MainViewController implements Initializable {
 
 	    @FXML
 	    void onMenuItemZonasEleitoraisAction() {
+	    	
+	    	loadView("/gui/ZonaList.fxml", (ZonaListController controller) -> {
+				controller.setZonaService(new ZonaService());
+				controller.updateTableView();
+			});
 
 	    }
 	
