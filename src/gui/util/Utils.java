@@ -1,5 +1,6 @@
 package gui.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,6 +28,11 @@ public class Utils {
 			return null;
 		}
 	}
+	
+	public static String parseToString(Date date, String format) {
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		return sdf.format(date);
+	}
 
 	public static Long tryParseToLong(String str) {
 		try {
@@ -43,7 +49,16 @@ public class Utils {
 			return null;
 		}
 	}
-
+	
+	public static Date tryParseToDate(String str) {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			return sdf.parse(str);
+		} catch (ParseException e) {
+			return null;
+		}
+	}
+	
 	public static <T> void formatTableColumnDate(TableColumn<T, Date> tableColumn, String format) {
 		tableColumn.setCellFactory(column -> {
 			TableCell<T, Date> cell = new TableCell<T, Date>() {

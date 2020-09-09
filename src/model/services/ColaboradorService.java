@@ -1,6 +1,6 @@
 package model.services;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 
 import model.dao.DaoFactory;
@@ -13,11 +13,11 @@ public class ColaboradorService {
 	private ColaboradorDao dao = DaoFactory.createColaboradorDao();
 	
 	public List<Colaborador> findAll() {		
-		//MOCK
+		/*MOCK
 		List<Colaborador> list = new ArrayList<>();
 		list.add(new Colaborador(11, "Gabriel", new Zona()));
 		return list;
-		//return dao.findAll();
+		*/return dao.findAll();
 		
 	}
 	

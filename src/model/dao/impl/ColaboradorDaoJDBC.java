@@ -34,7 +34,7 @@ private Connection conn;
 					+ "VALUES (?,?)");
 						
 			st.setString(1, obj.getNome());
-			st.setInt(2, obj.getZona().getZona());
+			st.setString(2, obj.getZona().toString());
 			
 			
 			int rowsAffected = st.executeUpdate();
@@ -62,7 +62,7 @@ private Connection conn;
 				"WHERE PK_Colaborador = ?");
 
 			st.setString(1, obj.getNome());
-			st.setInt(2, obj.getZona().getZona());
+			st.setString(2, obj.getZona().toString());
 			
 
 			st.executeUpdate();

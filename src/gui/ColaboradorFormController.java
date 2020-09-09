@@ -191,7 +191,7 @@ public class ColaboradorFormController implements Initializable {
 			@Override
 			protected void updateItem(Zona item, boolean empty) {
 				super.updateItem(item, empty);
-				//setText(empty ? "" : item.getZona());
+				setText(empty ? "" : item.toString());
 			}
 		};
 		comboBoxZona.setCellFactory(factory);

@@ -16,4 +16,8 @@ public class DaoFactory {
 	public static ColaboradorDao createColaboradorDao() {
 		return new ColaboradorDaoJDBC(DB.getConnection());
 	}
+	
+	public static CertidaoDao createCertidaoDao() {
+		return new CertidaoDaoJDBC(DB.getConnection());
+	}
 }
