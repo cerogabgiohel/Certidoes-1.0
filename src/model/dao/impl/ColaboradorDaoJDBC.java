@@ -145,7 +145,7 @@ private Connection conn;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT TB_Colaborador.*,TB_Zona.PK_Zona as zonaEleitoral "
+					"SELECT TB_Colaborador.*,TB_Zona.INT_Zona as zonaEleitoral, TB_Zona.TXT_UF "
 					+ "FROM TB_Colaborador, TB_Zona "
 					+ "WHERE TB_Colaborador.FK_Zona = TB_Zona.PK_Zona ");
 					

@@ -6,8 +6,7 @@ import model.dao.CertidaoDao;
 import model.dao.DaoFactory;
 import model.entities.Certidao;
 
-public class CertidaoService {
-	
+public class CertidaoService {	
 	
 	private CertidaoDao dao = DaoFactory.createCertidaoDao();
 	
@@ -19,7 +18,7 @@ public class CertidaoService {
 	
 	public void saveOrUpdate(Certidao obj) {		
 		if (obj.getCertidao() == null) {
-						dao.insert(obj);
+			dao.insert(obj);
 		}
 		else {
 			dao.update(obj);

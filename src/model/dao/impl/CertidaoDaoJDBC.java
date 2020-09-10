@@ -102,13 +102,14 @@ private Connection conn;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT TB_Certidao.*, TB_Zona.INT_Zona as intZona, TB_Zona.TXT_UF as uf, "
-					+ "TB_Colaborador.TXT_Nome as nome, TB_TipoDocumento.TXT_DescricaoTipDoc as tipDoc "
-					+ "From TB_Certidao, TB_Zona, TB_Colaborador, TB_TipoDocumento "
-					+ "Where (TB_Certidao.FK_TipDoc = TB_Colaborador.TXT_Nome) "
-					+ "AND (TB_Certidao.FK_TipDoc = TB_TipoDocumento.TXT_DescricaoTipDoc) "
-					+ "AND (TB_Certidao.FK_Zona = TB_Zona.INT_Zona, TB_Zona.TXT_UF) "
-					+ "AND (TB_Certidao.PK_Colaborador = ?);");
+			st = conn.prepareStatement(
+					"SELECT TB_Certidao.*, TB_Colaborador.TXT_Nome as txtNome, TB_TipoDocumento.TXT_DescricaoTipoDoc as tipDoc, "
+							+ " TB_Zona.INT_Zona as intZona, TB_Zona.TXT_UF as txtUF "
+							+ "FROM TB_Certidao, TB_Colaborador, TB_TipoDocumento, TB_Zona "
+							+ "WHERE (TB_Certidao.FK_Colaborador = TB_Colaborador.PK_Colaborador) "
+							+ "AND (TB_Certidao.FK_TipDoc = TB_TipoDocumento.PK_TipDoc) "
+							+"AND (TB_Certidao.FK_Zona = PK_Zona "
+							+ "AND (TB_Certidao.PK_Certidao = ?);");
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
@@ -176,12 +177,12 @@ private Connection conn;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT TB_Certidao.*, TB_Zona.INT_Zona as intZona, TB_Zona.TXT_UF as uf, "
-					+ "TB_Colaborador.TXT_Nome as nome, TB_TipoDocumento.TXT_DescricaoTipDoc as tipDoc "
-					+ "From TB_Certidao, TB_Zona, TB_Colaborador, TB_TipoDocumento "
-					+ "Where (TB_Certidao.FK_TipDoc = TB_Colaborador.TXT_Nome) "
-					+ "AND (TB_Certidao.FK_TipDoc = TB_TipoDocumento.TXT_DescricaoTipDoc) "
-					+ "AND (TB_Certidao.FK_Zona = TB_Zona.INT_Zona, TB_Zona.TXT_UF) ");
+					"SELECT TB_Certidao.*, TB_Colaborador.TXT_Nome as txtNome, TB_TipoDocumento.TXT_DescricaoTipDoc as tipDoc, "
+							+ " TB_Zona.INT_Zona as intZona, TB_Zona.TXT_UF as txtUF "
+							+ "FROM TB_Certidao, TB_Colaborador, TB_TipoDocumento, TB_Zona "
+							+ "WHERE (TB_Certidao.FK_Colaborador = TB_Colaborador.PK_Colaborador) "
+							+ "AND (TB_Certidao.FK_TipDoc = TB_TipoDocumento.PK_TipDoc) "
+							+ "AND (TB_Certidao.FK_Zona = PK_Zona);");
 					
 			rs = st.executeQuery();
 			
@@ -191,8 +192,8 @@ private Connection conn;
 			Map<String, Colaborador> mapColab = new HashMap<>();
 			while (rs.next()) {
 				Documento doc = mapDoc.get(rs.getString("tipDoc"));
-				Colaborador colab = mapColab.get(rs.getString("nome"));
-				Zona zona = map.get(rs.getString("intZona" + " " + " uf"));
+				Colaborador colab = mapColab.get(rs.getString("txtNome"));
+				Zona zona = map.get(rs.getString("intZona"));
 				Certidao obj = instantiateCertidao(rs,colab, zona, doc);
 				list.add(obj);
 			}

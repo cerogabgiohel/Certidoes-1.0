@@ -17,6 +17,12 @@ public class DB {
 	public static Connection getConnection() {
 		if (conn == null) {
 			try {
+				try {
+					Class.forName("org.sqlite.JDBC");
+				} catch (ClassNotFoundException e) {
+					
+					e.printStackTrace();
+				}
 				Properties props = loadProperties();
 				String url = props.getProperty ("dburl_gabriel");
 //				String url = props.getProperty ("dburl_virlei");

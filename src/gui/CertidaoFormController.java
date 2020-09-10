@@ -33,6 +33,7 @@ import model.entities.Zona;
 import model.exceptions.ValidationException;
 import model.services.CertidaoService;
 import model.services.ColaboradorService;
+import model.services.DocumentoService;
 import model.services.ZonaService;
 
 public class CertidaoFormController implements Initializable {
@@ -94,7 +95,11 @@ public class CertidaoFormController implements Initializable {
   	
   	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
   	
-  	 private ZonaService zonaService;
+  	private ZonaService zonaService;
+  	 
+  	private DocumentoService docService;
+  	
+  	private ColaboradorService colabService;
 
     @FXML
     void onBtSaveAction(ActionEvent event) {
@@ -159,6 +164,8 @@ public class CertidaoFormController implements Initializable {
 		}
 		
 		obj.setZona(comboBoxZonaEleitoral.getValue());
+		obj.setColaborador(comboBoxColaborador.getValue());
+		obj.setTipoDoc(comboBoxTipDoc.getValue());
 		
 		return obj;
 		
@@ -215,6 +222,20 @@ public class CertidaoFormController implements Initializable {
 		List<Zona> list = zonaService.findAll();
 		obsListZona = FXCollections.observableArrayList(list);
 		comboBoxZonaEleitoral.setItems(obsListZona);
+	
+		if (docService == null ) {
+			throw new IllegalStateException("Lista de Documentos está vazia");
+		}
+		List<Documento> listDoc = docService .findAll();
+		obsListDocumento = FXCollections.observableArrayList(listDoc);
+		comboBoxTipDoc.setItems(obsListDocumento);
+		
+		if (colabService == null ) {
+			throw new IllegalStateException("Lista de Colaboradores está vazia");
+		}
+		List<Colaborador> listColab = colabService.findAll();
+		obsListColaborador = FXCollections.observableArrayList(listColab);
+		comboBoxColaborador.setItems(obsListColaborador);
 	
 	}
 	

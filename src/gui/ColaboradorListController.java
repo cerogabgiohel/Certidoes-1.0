@@ -107,6 +107,8 @@ public class ColaboradorListController implements Initializable, DataChangeListe
 			controller.setColaborador(obj);
 
 			controller.setColaboradorService(new ColaboradorService());
+			
+			controller.loadAssociatedObjects();
 
 			controller.subscribeDataChangeListener(this);
 

@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Certidao implements Serializable{
 	
+	private static final long serialVersionUID = 1L;	
 	private Integer certidao;
 	private Colaborador colaborador;
 	private Documento tipoDoc;

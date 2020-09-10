@@ -8,7 +8,7 @@
 
 <VBox prefHeight="261.0" prefWidth="747.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CertidaoListController">
    <children>
-      <Label text="Registro de Colaboradores">
+      <Label text="Registro de Certidão">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

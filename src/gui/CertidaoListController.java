@@ -122,7 +122,9 @@ public class CertidaoListController implements Initializable, DataChangeListener
   			controller.setCertidao(obj);
 
   			controller.setCertidaoService(new CertidaoService());
-
+  			
+  			controller.loadAssociatedObjects();
+  
   			controller.subscribeDataChangeListener(this);
 
   			controller.updateFormData();
