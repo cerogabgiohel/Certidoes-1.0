@@ -81,7 +81,7 @@ public class Zona implements Serializable{
 
 	@Override
 	public String toString() {
-		return zonaEleitoral+"-"+sede;
+		return zonaEleitoral+" - "+sede;
 	}
 	
 

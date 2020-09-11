@@ -32,6 +32,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Certidao;
 import model.services.CertidaoService;
+import model.services.ColaboradorService;
+import model.services.DocumentoService;
+import model.services.ZonaService;
 
 
 public class CertidaoListController implements Initializable, DataChangeListener {
@@ -121,7 +124,7 @@ public class CertidaoListController implements Initializable, DataChangeListener
   			
   			controller.setCertidao(obj);
 
-  			controller.setCertidaoService(new CertidaoService());
+  			controller.setCertidaoService(new CertidaoService(), new ZonaService(), new ColaboradorService(), new DocumentoService());
   			
   			controller.loadAssociatedObjects();
   

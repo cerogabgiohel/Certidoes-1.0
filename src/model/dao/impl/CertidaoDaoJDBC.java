@@ -35,7 +35,7 @@ private Connection conn;
 						
 			st.setString(1, obj.getColaborador().getNome());
 			st.setString(2, obj.getTipoDoc().getDescricao());
-			st.setString(3, obj.getZona().getZonaEleitoral() +" "+ obj.getZona().getSede());
+			st.setString(3, obj.getZona().toString());
 			st.setString(4, obj.getRequerente());
 			st.setString(5, Utils.parseToString(obj.getDataEmissao(), "dd//MM//yyyy"));
 			
@@ -66,7 +66,7 @@ private Connection conn;
 
 			st.setString(1, obj.getColaborador().getNome());
 			st.setString(2, obj.getTipoDoc().getDescricao());
-			st.setString(3, obj.getZona().getZonaEleitoral() + " " + obj.getZona().getSede());
+			st.setString(3, obj.getZona().toString());
 			st.setString(4, obj.getRequerente());
 			st.setString(5, Utils.parseToString(obj.getDataEmissao(), "dd/MM/yyyy"));
 
@@ -177,8 +177,8 @@ private Connection conn;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT TB_Certidao.*, TB_Colaborador.TXT_Nome as txtNome, TB_TipoDocumento.TXT_DescricaoTipDoc as tipDoc, "
-							+ " TB_Zona.INT_Zona as intZona, TB_Zona.TXT_UF as txtUF "
+					"SELECT TB_Certidao.*, TB_Colaborador.PK_Colaborador as colaborador, TB_TipoDocumento.PK_TipDoc as tipDoc, "
+							+ " TB_Zona.PK_Zona as intZona, TB_Zona.TXT_UF as txtUF "
 							+ "FROM TB_Certidao, TB_Colaborador, TB_TipoDocumento, TB_Zona "
 							+ "WHERE (TB_Certidao.FK_Colaborador = TB_Colaborador.PK_Colaborador) "
 							+ "AND (TB_Certidao.FK_TipDoc = TB_TipoDocumento.PK_TipDoc) "
@@ -187,13 +187,26 @@ private Connection conn;
 			rs = st.executeQuery();
 			
 			List<Certidao> list = new ArrayList<>();
-			Map<String, Zona> map = new HashMap<>();
-			Map<String, Documento> mapDoc = new HashMap<>();
-			Map<String, Colaborador> mapColab = new HashMap<>();
+			Map<Integer, Zona> map = new HashMap<>();
+			Map<Integer, Documento> mapDoc = new HashMap<>();
+			Map<Integer, Colaborador> mapColab = new HashMap<>();
 			while (rs.next()) {
-				Documento doc = mapDoc.get(rs.getString("tipDoc"));
-				Colaborador colab = mapColab.get(rs.getString("txtNome"));
-				Zona zona = map.get(rs.getString("intZona"));
+				Documento doc = mapDoc.get(rs.getInt("tipDoc"));
+				Colaborador colab = mapColab.get(rs.getInt("colaborador"));
+				Zona zona = map.get(rs.getInt("intZona"));
+				if(zona == null) {
+					zona = instantiateZona(rs);
+					map.put(rs.getInt("intZona"), zona);
+				}
+				if(doc == null) {
+					doc= instantiateDocumento(rs);
+					mapDoc.put(rs.getInt("tipDoc"), doc);
+				}
+				if(colab == null) {
+					colab= instantiateColaborador(rs, zona);
+					mapColab.put(rs.getInt("colaborador"), colab);
+				}
+				
 				Certidao obj = instantiateCertidao(rs,colab, zona, doc);
 				list.add(obj);
 			}

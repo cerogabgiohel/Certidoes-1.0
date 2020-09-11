@@ -103,8 +103,9 @@ public class ColaboradorFormController implements Initializable {
 		this.entity = entity;
 	}
 	
-	public void setColaboradorService(ColaboradorService service) {
+	public void setColaboradorService(ColaboradorService service, ZonaService zonaService) {
 		this.service = service;
+		this.zonaService = zonaService;
 	}
 	
 	public void subscribeDataChangeListener(DataChangeListener listener) {

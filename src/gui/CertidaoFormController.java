@@ -1,7 +1,12 @@
 package gui;
 
 import java.net.URL;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -133,8 +138,11 @@ public class CertidaoFormController implements Initializable {
 		this.entity = entity;
 	}
 	
-	public void setCertidaoService(CertidaoService service) {
+	public void setCertidaoService(CertidaoService service, ZonaService zonaService, ColaboradorService colabService, DocumentoService docService) {
 		this.service = service;
+		this.zonaService = zonaService;
+		this.colabService = colabService;
+		this.docService = docService;
 	}
 	
 	public void subscribeDataChangeListener(DataChangeListener listener) {
@@ -167,6 +175,14 @@ public class CertidaoFormController implements Initializable {
 		obj.setColaborador(comboBoxColaborador.getValue());
 		obj.setTipoDoc(comboBoxTipDoc.getValue());
 		
+		if (datePickerDtEmissao.getValue() == null) {
+			exception.addError("DtEmissao", "Data da Emissão não pode ser nula");
+		}
+		else {
+			Instant instant = Instant.from(datePickerDtEmissao.getValue().atStartOfDay(ZoneId.systemDefault()));
+			obj.setDataEmissao(Date.from(instant));
+		}
+		
 		return obj;
 		
 	}
@@ -180,7 +196,8 @@ public class CertidaoFormController implements Initializable {
 	}
 	
 	private void initializeNodes() {
-		Constraints.setTextFieldInteger(txtCertidao);		
+		Constraints.setTextFieldInteger(txtCertidao);
+		Utils.formatDatePicker(datePickerDtEmissao, "dd/MM/yyyy");
 		
 	}
 	
@@ -211,6 +228,10 @@ public class CertidaoFormController implements Initializable {
 		}
 		else {
 			comboBoxColaborador.setValue(entity.getColaborador());
+		}
+		
+		if(entity.getDataEmissao() != null) {
+		datePickerDtEmissao.setValue(LocalDate.of(entity.getDataEmissao().getYear(), entity.getDataEmissao().getMonth(), entity.getDataEmissao().getDay()));
 		}
 	
 	}
@@ -252,7 +273,7 @@ public class CertidaoFormController implements Initializable {
 			@Override
 			protected void updateItem(Zona item, boolean empty) {
 				super.updateItem(item, empty);
-				setText(empty ? "" : item.getUf());
+				setText(empty ? "" : item.toString());
 			}
 		};
 		comboBoxZonaEleitoral.setCellFactory(factory);

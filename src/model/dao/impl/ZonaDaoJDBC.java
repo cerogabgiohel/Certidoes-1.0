@@ -129,7 +129,7 @@ private Connection conn;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT * FROM TB_Zona");
+			st = conn.prepareStatement("SELECT * FROM TB_Zona;");
 					
 			rs = st.executeQuery();
 			

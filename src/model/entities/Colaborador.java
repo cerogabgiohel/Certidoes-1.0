@@ -71,7 +71,8 @@ public class Colaborador implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Colaborador [colaborador=" + colaborador + ", nome=" + nome + ", zona=" + zona + "]";
+		//return "Colaborador [colaborador=" + colaborador + ", nome=" + nome + ", zona=" + zona + "]";
+		return colaborador + " - " + nome;
 	}
 	
 	

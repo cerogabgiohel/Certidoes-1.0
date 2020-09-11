@@ -31,6 +31,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Colaborador;
 import model.services.ColaboradorService;
+import model.services.ZonaService;
 
 public class ColaboradorListController implements Initializable, DataChangeListener  {
 
@@ -106,7 +107,7 @@ public class ColaboradorListController implements Initializable, DataChangeListe
 			
 			controller.setColaborador(obj);
 
-			controller.setColaboradorService(new ColaboradorService());
+			controller.setColaboradorService(new ColaboradorService(), new ZonaService());
 			
 			controller.loadAssociatedObjects();
 

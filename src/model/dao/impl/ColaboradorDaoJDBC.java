@@ -34,7 +34,7 @@ private Connection conn;
 					+ "VALUES (?,?)");
 						
 			st.setString(1, obj.getNome());
-			st.setString(2, obj.getZona().toString());
+			st.setInt(2, obj.getZona().getZonaEleitoral());
 			
 			
 			int rowsAffected = st.executeUpdate();
@@ -57,12 +57,13 @@ private Connection conn;
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"UPDATE TB_Colaborador" +
+				"UPDATE TB_Colaborador " +
 				"SET TXT_Nome = ?, FK_Zona = ? " +		
 				"WHERE PK_Colaborador = ?");
 
 			st.setString(1, obj.getNome());
-			st.setString(2, obj.getZona().toString());
+			st.setInt(2, obj.getZona().getZonaEleitoral());
+			st.setInt(3, obj.getColaborador());
 			
 
 			st.executeUpdate();
@@ -97,9 +98,10 @@ private Connection conn;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT TB_Colaborador.*, TB_Zona.INT_Zona as intZona, "
-					+ "From TB_Colaborador, TB_Zona "
-					+ "Where (TB_Colaborador.FK_Zona = TB_Zona.INT_Zona) "
+			st = conn.prepareStatement(
+					"SELECT TB_Colaborador.*, TB_Zona.INT_Zona as intZona "
+					+"FROM TB_Colaborador, TB_Zona "
+					+"WHERE (TB_Colaborador.FK_Zona = TB_Zona.PK_Zona) "
 					+"AND (TB_Colaborador.PK_Colaborador = ?);");
 			st.setInt(1, id);
 			rs = st.executeQuery();
@@ -145,9 +147,9 @@ private Connection conn;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT TB_Colaborador.*,TB_Zona.INT_Zona as zonaEleitoral, TB_Zona.TXT_UF "
-					+ "FROM TB_Colaborador, TB_Zona "
-					+ "WHERE TB_Colaborador.FK_Zona = TB_Zona.PK_Zona ");
+					"SELECT TB_Colaborador.*,TB_Zona.PK_Zona as zonaEleitoral "  
+					+"FROM TB_Colaborador, TB_Zona " 
+					+"WHERE TB_Colaborador.FK_Zona = TB_Zona.PK_Zona " );
 					
 			rs = st.executeQuery();
 			
@@ -156,6 +158,8 @@ private Connection conn;
 			
 			while (rs.next()) {
 				Zona zona = map.get(rs.getInt("zonaEleitoral"));
+				
+				
 				Colaborador obj = instantiateColaborador(rs,zona);
 				list.add(obj);
 			}
