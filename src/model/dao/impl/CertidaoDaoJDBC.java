@@ -33,11 +33,11 @@ private Connection conn;
 					+ "(FK_Colaborador, FK_TipDoc, FK_Zona, TXT_Requerente, DAT_Emissao) "
 					+ "VALUES (?,?,?,?,?)");
 						
-			st.setString(1, obj.getColaborador().getNome());
-			st.setString(2, obj.getTipoDoc().getDescricao());
-			st.setString(3, obj.getZona().toString());
+			st.setInt(1, obj.getColaborador().getColaborador());
+			st.setInt(2, obj.getTipoDoc().getTipoDoc());
+			st.setInt(3, obj.getZona().getZona());
 			st.setString(4, obj.getRequerente());
-			st.setString(5, Utils.parseToString(obj.getDataEmissao(), "dd//MM//yyyy"));
+			st.setString(5, Utils.parseToString(obj.getDataEmissao(), "dd/MM/yyyy"));
 			
 			
 			int rowsAffected = st.executeUpdate();
@@ -64,11 +64,12 @@ private Connection conn;
 				"SET FK_Colaborador = ?, FK_TipDoc = ?, FK_Zona = ?, TXT_Requerente = ?, DAT_Emissao = ? " +		
 				"WHERE PK_Certidao = ?");
 
-			st.setString(1, obj.getColaborador().getNome());
-			st.setString(2, obj.getTipoDoc().getDescricao());
-			st.setString(3, obj.getZona().toString());
+			st.setInt(1, obj.getColaborador().getColaborador());
+			st.setInt(2, obj.getTipoDoc().getTipoDoc());
+			st.setInt(3, obj.getZona().getZona());
 			st.setString(4, obj.getRequerente());
 			st.setString(5, Utils.parseToString(obj.getDataEmissao(), "dd/MM/yyyy"));
+			st.setInt(6, obj.getCertidao());
 
 			st.executeUpdate();
 		}
@@ -134,8 +135,8 @@ private Connection conn;
 	
 	private Colaborador instantiateColaborador(ResultSet rs, Zona zona) throws SQLException {
 		Colaborador obj = new Colaborador();
-		obj.setColaborador(rs.getInt("PK_Colaborador"));
-		obj.setNome(rs.getString("TXT_Nome"));
+		obj.setColaborador(rs.getInt("idColab"));
+		obj.setNome(rs.getString("nomeColab"));
 		obj.setZona(zona);
 	
 		return obj;
@@ -143,18 +144,17 @@ private Connection conn;
 	
 	private Zona instantiateZona(ResultSet rs) throws SQLException {
 		Zona obj = new Zona();
-		obj.setZona(rs.getInt("PK_Zona"));
-		obj.setZonaEleitoral(rs.getInt("INT_Zona"));
-		obj.setUf(rs.getString("TXT_UF"));
-		obj.setSede(rs.getString("TXT_Sede"));
+		obj.setZona(rs.getInt("idZona"));
+		obj.setZonaEleitoral(rs.getInt("intZona"));		
+		obj.setSede(rs.getString("sedeZona"));
 	
 		return obj;
 	}
 	
 	private Documento instantiateDocumento(ResultSet rs) throws SQLException {
 		Documento obj = new Documento();
-		obj.setTipoDoc(rs.getInt("PK_TipDoc"));
-		obj.setDescricao(rs.getString("TXT_DescricaoTipDoc"));
+		obj.setTipoDoc(rs.getInt("idTipDoc"));
+		obj.setDescricao(rs.getString("descricaoTipDoc"));
 	
 		return obj;
 	}
@@ -164,7 +164,7 @@ private Connection conn;
 		obj.setCertidao(rs.getInt("PK_Certidao"));
 		obj.setColaborador(colab);
 		obj.setZona(zona);
-		obj.setDataEmissao(Utils.tryParseToDate(rs.getString("DAT_Emissao")));
+		obj.setDataEmissao( Utils.tryParseToDate(rs.getString("DAT_Emissao")));
 		obj.setTipoDoc(tipoDoc);
 		obj.setRequerente(rs.getString("TXT_Requerente"));
 	
@@ -177,34 +177,43 @@ private Connection conn;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT TB_Certidao.*, TB_Colaborador.PK_Colaborador as colaborador, TB_TipoDocumento.PK_TipDoc as tipDoc, "
-							+ " TB_Zona.PK_Zona as intZona, TB_Zona.TXT_UF as txtUF "
-							+ "FROM TB_Certidao, TB_Colaborador, TB_TipoDocumento, TB_Zona "
-							+ "WHERE (TB_Certidao.FK_Colaborador = TB_Colaborador.PK_Colaborador) "
-							+ "AND (TB_Certidao.FK_TipDoc = TB_TipoDocumento.PK_TipDoc) "
-							+ "AND (TB_Certidao.FK_Zona = PK_Zona);");
+			"SELECT TB_Certidao.*, TB_Colaborador.PK_Colaborador as idColab, TB_Colaborador.TXT_Nome as nomeColab, "  
+			+"TB_TipoDocumento.PK_TipDoc as idTipDoc, TB_TipoDocumento.TXT_DescricaoTipDoc as descricaoTipDoc, "
+			+"TB_Zona.PK_Zona as idZona, TB_Zona.INT_Zona as intZona, TB_Zona.TXT_Sede as sedeZona "  
+			+"FROM TB_CERTIDAO, TB_COLABORADOR, TB_TIPODOCUMENTO, TB_ZONA " 
+			+"WHERE TB_Certidao.FK_Colaborador = TB_Colaborador.PK_Colaborador " 
+			+"AND TB_Certidao.FK_TipDoc = TB_TipoDocumento.PK_TipDoc " 
+			+"AND TB_Certidao.FK_Zona = TB_Zona.PK_Zona");
 					
 			rs = st.executeQuery();
 			
 			List<Certidao> list = new ArrayList<>();
+			
 			Map<Integer, Zona> map = new HashMap<>();
 			Map<Integer, Documento> mapDoc = new HashMap<>();
 			Map<Integer, Colaborador> mapColab = new HashMap<>();
+			
 			while (rs.next()) {
-				Documento doc = mapDoc.get(rs.getInt("tipDoc"));
-				Colaborador colab = mapColab.get(rs.getInt("colaborador"));
-				Zona zona = map.get(rs.getInt("intZona"));
+				
+				Documento doc = mapDoc.get(rs.getInt("idTipDoc"));
+				
+				Colaborador colab = mapColab.get(rs.getInt("idColab"));
+				
+				Zona zona = map.get(rs.getInt("idZona"));
+				
 				if(zona == null) {
 					zona = instantiateZona(rs);
-					map.put(rs.getInt("intZona"), zona);
+					map.put(rs.getInt("idZona"), zona);
 				}
+				
 				if(doc == null) {
 					doc= instantiateDocumento(rs);
-					mapDoc.put(rs.getInt("tipDoc"), doc);
+					mapDoc.put(rs.getInt("idTipDoc"), doc);
 				}
+				
 				if(colab == null) {
 					colab= instantiateColaborador(rs, zona);
-					mapColab.put(rs.getInt("colaborador"), colab);
+					mapColab.put(rs.getInt("idColab"), colab);
 				}
 				
 				Certidao obj = instantiateCertidao(rs,colab, zona, doc);

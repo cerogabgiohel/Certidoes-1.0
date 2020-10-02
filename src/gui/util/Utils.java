@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 public class Utils {
-	
+
 	public static Stage currentStage(ActionEvent event) {
 		return (Stage) ((Node) event.getSource()).getScene().getWindow();
 	}
@@ -27,11 +27,6 @@ public class Utils {
 		} catch (NumberFormatException e) {
 			return null;
 		}
-	}
-	
-	public static String parseToString(Date date, String format) {
-		SimpleDateFormat sdf = new SimpleDateFormat(format);
-		return sdf.format(date);
 	}
 
 	public static Long tryParseToLong(String str) {
@@ -49,7 +44,7 @@ public class Utils {
 			return null;
 		}
 	}
-	
+
 	public static Date tryParseToDate(String str) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		try {
@@ -58,7 +53,12 @@ public class Utils {
 			return null;
 		}
 	}
-	
+
+	public static String parseToString(Date date, String format) {
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		return sdf.format(date);
+	}
+
 	public static <T> void formatTableColumnDate(TableColumn<T, Date> tableColumn, String format) {
 		tableColumn.setCellFactory(column -> {
 			TableCell<T, Date> cell = new TableCell<T, Date>() {

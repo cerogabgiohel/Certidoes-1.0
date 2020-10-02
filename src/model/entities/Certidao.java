@@ -102,8 +102,11 @@ public class Certidao implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Certidao [certidao=" + certidao + ", colaborador=" + colaborador + ", tipoDoc=" + tipoDoc + ", zona="
+		/*return "Certidao [certidao=" + certidao + ", colaborador=" + colaborador + ", tipoDoc=" + tipoDoc + ", zona="
 				+ zona + ", requerente=" + requerente + ", dataEmissao=" + dataEmissao + "]";
+		*/
+		
+		return dataEmissao + " - " + certidao;
 	}
 	
 	

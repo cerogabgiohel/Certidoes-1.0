@@ -17,7 +17,8 @@ public class ColaboradorService {
 		List<Colaborador> list = new ArrayList<>();
 		list.add(new Colaborador(11, "Gabriel", new Zona()));
 		return list;
-		*/return dao.findAll();
+		*/
+		return dao.findAll();
 		
 	}
 	

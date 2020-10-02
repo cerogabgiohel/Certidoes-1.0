@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="261.0" prefWidth="747.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CertidaoListController">
+<VBox prefHeight="261.0" prefWidth="844.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CertidaoListController">
    <children>
       <Label text="Registro de Certidão">
          <font>
@@ -24,13 +27,13 @@
       <TableView fx:id="tableViewCertidao" prefHeight="200.0" prefWidth="200.0">
          <columns>
             <TableColumn fx:id="tableColumnCertidao" prefWidth="103.0" text="Certidão" />
-            <TableColumn fx:id="tableColumnColaborador" prefWidth="75.0" text="Colaborador" />
-            <TableColumn fx:id="tableColumnTipoDoc" prefWidth="75.0" text="Tipo Doc" />
-            <TableColumn fx:id="tableColumnZona" prefWidth="75.0" text="Zona" />
-            <TableColumn fx:id="tableColumnRequerente" prefWidth="75.0" text="Requerente" />
-            <TableColumn fx:id="tableColumnDtEmissao" prefWidth="129.0" text="Data de Emissão" />
-            <TableColumn fx:id="tableColumnEDIT" prefWidth="72.0" />
-            <TableColumn fx:id="tableColumnREMOVE" prefWidth="77.0" />
+            <TableColumn fx:id="tableColumnColaborador" prefWidth="113.0" text="Colaborador" />
+            <TableColumn fx:id="tableColumnTipoDoc" prefWidth="113.0" text="Tipo Doc" />
+            <TableColumn fx:id="tableColumnZona" prefWidth="120.0" text="Zona" />
+            <TableColumn fx:id="tableColumnRequerente" text="Requerente" />
+            <TableColumn fx:id="tableColumnDtEmissao" prefWidth="125.0" text="Data de Emissão" />
+            <TableColumn fx:id="tableColumnEDIT" prefWidth="75.0" />
+            <TableColumn fx:id="tableColumnREMOVE" prefWidth="75.0" />
          </columns>
       </TableView>
    </children>

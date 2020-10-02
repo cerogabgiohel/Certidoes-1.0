@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="357.0" prefWidth="563.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CertidaoFormController">
+<AnchorPane prefHeight="357.0" prefWidth="563.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CertidaoFormController">
    <children>
       <GridPane layoutX="12.0" layoutY="9.0" prefHeight="351.0" prefWidth="520.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="9.0">
          <children>
@@ -26,7 +33,7 @@
             <ComboBox fx:id="comboBoxColaborador" prefHeight="25.0" prefWidth="235.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <ComboBox fx:id="comboBoxTipDoc" prefHeight="25.0" prefWidth="234.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <ComboBox fx:id="comboBoxZonaEleitoral" prefHeight="25.0" prefWidth="234.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <DatePicker fx:id="datePickerDtEmissao" prefHeight="25.0" prefWidth="238.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <DatePicker fx:id="datePickerDtEmissao" prefHeight="25.0" prefWidth="232.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="90.0" />

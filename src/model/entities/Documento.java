@@ -61,7 +61,7 @@ public class Documento implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Documento [tipoDoc=" + tipoDoc + ", descricao=" + descricao + "]";
+		return descricao;
 	}
 	
 	

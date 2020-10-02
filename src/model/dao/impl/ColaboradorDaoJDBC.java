@@ -34,7 +34,7 @@ private Connection conn;
 					+ "VALUES (?,?)");
 						
 			st.setString(1, obj.getNome());
-			st.setInt(2, obj.getZona().getZonaEleitoral());
+			st.setInt(2, obj.getZona().getZona());
 			
 			
 			int rowsAffected = st.executeUpdate();
@@ -62,7 +62,7 @@ private Connection conn;
 				"WHERE PK_Colaborador = ?");
 
 			st.setString(1, obj.getNome());
-			st.setInt(2, obj.getZona().getZonaEleitoral());
+			st.setInt(2, obj.getZona().getZona());
 			st.setInt(3, obj.getColaborador());
 			
 
@@ -127,16 +127,14 @@ private Connection conn;
 		obj.setColaborador(rs.getInt("PK_Colaborador"));
 		obj.setNome(rs.getString("TXT_Nome"));
 		obj.setZona(zona);
-	
 		return obj;
 	}
 	
 	private Zona instantiateZona(ResultSet rs) throws SQLException {
 		Zona obj = new Zona();
-		obj.setZona(rs.getInt("PK_Zona"));
-		obj.setZonaEleitoral(rs.getInt("INT_Zona"));
-		obj.setUf(rs.getString("TXT_UF"));
-		obj.setSede(rs.getString("TXT_Sede"));
+		obj.setZona(rs.getInt("idZona"));
+		obj.setZonaEleitoral(rs.getInt("intZona"));		
+		obj.setSede(rs.getString("sedeZona"));
 	
 		return obj;
 	}
@@ -147,9 +145,9 @@ private Connection conn;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT TB_Colaborador.*,TB_Zona.PK_Zona as zonaEleitoral "  
-					+"FROM TB_Colaborador, TB_Zona " 
-					+"WHERE TB_Colaborador.FK_Zona = TB_Zona.PK_Zona " );
+					"SELECT TB_Colaborador.*, TB_Zona.PK_Zona as idZona,TB_Zona.INT_Zona as intZona, TB_Zona.TXT_Sede as sedeZona  " + 
+					"FROM TB_Colaborador, TB_Zona " + 
+					"WHERE TB_Colaborador.FK_Zona = TB_Zona.PK_Zona");
 					
 			rs = st.executeQuery();
 			
@@ -157,8 +155,12 @@ private Connection conn;
 			Map<Integer, Zona> map = new HashMap<>();
 			
 			while (rs.next()) {
-				Zona zona = map.get(rs.getInt("zonaEleitoral"));
+				Zona zona = map.get(rs.getInt("idZona"));
 				
+				if (zona == null) {
+					zona = instantiateZona(rs);
+					map.put(rs.getInt("idZona"), zona);
+				}
 				
 				Colaborador obj = instantiateColaborador(rs,zona);
 				list.add(obj);

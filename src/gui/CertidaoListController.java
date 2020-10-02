@@ -98,6 +98,7 @@ public class CertidaoListController implements Initializable, DataChangeListener
   		tableColumnZona.setCellValueFactory(new PropertyValueFactory<>("zona"));
   		tableColumnRequerente.setCellValueFactory(new PropertyValueFactory<>("requerente"));
   		tableColumnDtEmissao.setCellValueFactory(new PropertyValueFactory<>("dataEmissao"));
+  		Utils.formatTableColumnDate(tableColumnDtEmissao,"dd/MM/yyyy");
   		
   		Stage stage = (Stage) Main.getMainScene().getWindow();
   		tableViewCertidao.prefHeightProperty().bind(stage.heightProperty());

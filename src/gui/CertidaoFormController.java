@@ -175,7 +175,7 @@ public class CertidaoFormController implements Initializable {
 		obj.setColaborador(comboBoxColaborador.getValue());
 		obj.setTipoDoc(comboBoxTipDoc.getValue());
 		
-		if (datePickerDtEmissao.getValue() == null) {
+		if (datePickerDtEmissao.getValue() == null || datePickerDtEmissao.getValue().toString().equals("")) {
 			exception.addError("DtEmissao", "Data da Emissão não pode ser nula");
 		}
 		else {
@@ -231,7 +231,7 @@ public class CertidaoFormController implements Initializable {
 		}
 		
 		if(entity.getDataEmissao() != null) {
-		datePickerDtEmissao.setValue(LocalDate.of(entity.getDataEmissao().getYear(), entity.getDataEmissao().getMonth(), entity.getDataEmissao().getDay()));
+		datePickerDtEmissao.setValue(LocalDate.ofInstant(entity.getDataEmissao().toInstant(), ZoneId.systemDefault()));
 		}
 	
 	}

@@ -14,10 +14,10 @@ public class Colaborador implements Serializable {
 }
 
 	public Colaborador(Integer colaborador, String nome, Zona zona) {
-		super();
 		this.colaborador = colaborador;
 		this.nome = nome;
 		this.zona = zona;
+	
 	}
 
 	public Integer getColaborador() {
@@ -43,6 +43,8 @@ public class Colaborador implements Serializable {
 	public void setZona(Zona zona) {
 		this.zona = zona;
 	}
+
+	
 
 	@Override
 	public int hashCode() {
@@ -71,9 +73,15 @@ public class Colaborador implements Serializable {
 
 	@Override
 	public String toString() {
-		//return "Colaborador [colaborador=" + colaborador + ", nome=" + nome + ", zona=" + zona + "]";
-		return colaborador + " - " + nome;
+	/*return "Colaborador [colaborador=" + colaborador + ", nome=" + nome + ", zona=" + zona + "]";
+	*/
+		return nome;
 	}
+
+
+
+
+	
 	
 	
 

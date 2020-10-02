@@ -55,7 +55,7 @@ public class ColaboradorListController implements Initializable, DataChangeListe
 
     @FXML
     private TableView<Colaborador> tableViewColaborador;    
-    
+        
     private ColaboradorService service;
     
     private ObservableList<Colaborador>obsList;
@@ -81,6 +81,7 @@ public class ColaboradorListController implements Initializable, DataChangeListe
 		tableColumnColaborador.setCellValueFactory(new PropertyValueFactory<>("colaborador"));
 		tableColumnZona.setCellValueFactory(new PropertyValueFactory<>("zona"));
 		tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		
 		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewColaborador.prefHeightProperty().bind(stage.heightProperty());
