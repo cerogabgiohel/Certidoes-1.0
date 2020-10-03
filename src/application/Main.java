@@ -36,6 +36,7 @@ private static Scene mainScene;
 
 	public static void main(String[] args) {
 		launch(args);
+		
 
 	}
 
